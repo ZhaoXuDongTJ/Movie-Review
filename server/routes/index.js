@@ -49,4 +49,7 @@ router.put('/collectedReview', validationMiddleware, controllers.collectedReview
 //获取收藏的影片列表
 router.get('/collectedReview', validationMiddleware, controllers.collectedReview.collectedReviewList)
 
+// 查询 收藏
+router.get('/hascollectedReview', validationMiddleware, controllers.collectedReview.collectedReview)
+
 module.exports = router

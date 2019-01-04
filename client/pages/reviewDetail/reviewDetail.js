@@ -154,37 +154,63 @@ Page({
   onTapCollectReview(event) {
     let review_id = this.data.reviewId
 
+    // 查看是否收藏影评
     qcloud.request({
-      url: config.service.collectReview,
+      url: config.service.hascollectedReview,
       login: true,
-      method: 'PUT',
-      data: {
-        review_id: review_id
-      },
+      method: 'GET',
       success: result => {
         let data = result.data
+        if (data.data.length>0){
+          // 收藏影评
+          qcloud.request({
+            url: config.service.collectReview,
+            login: true,
+            method: 'PUT',
+            data: {
+              review_id: review_id
+            },
+            success: result => {
+              let data = result.data
 
-        if (!data.code) {
-          wx.showToast({
-            icon: 'success',
-            title: '影评收藏成功'
+              if (!data.code) {
+                wx.showToast({
+                  icon: 'success',
+                  title: '影评收藏成功'
+                })
+              } else {
+                wx.showToast({
+                  icon: 'none',
+                  title: '影评收藏失败！！！'
+                })
+              }
+            },
+            fail: (res) => {
+              wx.hideLoading()
+              console.log(res)
+              wx.showToast({
+                icon: 'none',
+                title: '影评收藏失败'
+              })
+            }
           })
-        } else {
+        }else{
           wx.showToast({
             icon: 'none',
-            title: '影评收藏失败！！！'
+            title: '已经收藏'
           })
         }
+        
       },
       fail: (res) => {
-        wx.hideLoading()
         console.log(res)
         wx.showToast({
           icon: 'none',
-          title: '影评收藏失败'
+          title: '收藏失败'
         })
       }
     })
+  
   },
 
   /**

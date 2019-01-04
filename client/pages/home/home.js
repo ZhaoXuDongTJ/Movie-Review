@@ -75,9 +75,16 @@ Page({
         
         let data = result.data
         if(!data.code){
-          this.setData({
-            hotMovie: data.data[0]
-          })
+          if (data.data[0]!=null){
+            this.setData({
+              hotMovie: data.data[0]
+            })
+          }else{
+            wx.showToast({
+              title: '电影数据加载失败',
+              icon: 'none'
+            })
+          }
         }else{
           wx.showToast({
             title: '电影数据加载失败',

@@ -12,7 +12,7 @@
 		"autoAudits": false
 	},
 	"appid": "wxa62caeaf0d28c264",
-	"projectname": "movie_review",
+	"projectname": "Movie-Review-github",
 	"condition": {
 		"search": {
 			"current": -1,

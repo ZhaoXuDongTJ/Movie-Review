@@ -43,6 +43,9 @@ var config = {
         //获取收藏影评列表
         collectedReviewList: `${host}/weapp/collectedReview`,
 
+        // 
+        hascollectedReview: `${host}/weapp/hascollectedReview`,
+
     }
 };
 

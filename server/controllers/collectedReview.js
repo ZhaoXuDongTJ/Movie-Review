@@ -14,4 +14,10 @@ module.exports = {
   collectedReviewList: async ctx => {
     ctx.state.data = await DB.query("SELECT * FROM collectedReview;")
   },
+
+  collectedReview: async ctx => {
+    let user_id = ctx.state.$wxInfo.userinfo.openId
+    let review_id = +ctx.request.body.review_id
+    ctx.state.data = await DB.query("SELECT * FROM collectedReview where user_id=? and review_id=?;", [user_id, review_id])
+  },
 }
