@@ -3,11 +3,16 @@ var qcloud = require('./vendor/wafer2-client-sdk/index')
 var config = require('./config')
 
 let userInfo
-
+const UNPROMPTED = 0
+const UNAUTHORIZED = 1
+const AUTHORIZED = 2
 App({
     onLaunch: function () {
         qcloud.setLoginUrl(config.service.loginUrl)
     },
+  data: {
+    locationAuthType: UNPROMPTED
+  },
     login({ success, error }) {
       wx.getSetting({
         success: res => {

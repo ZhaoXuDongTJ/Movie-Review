@@ -9,6 +9,7 @@ Page({
    */
   data: {
     userInfo: null,
+    locationAuthType: app.data.locationAuthType,
     reviewType: ['发布的影评', '收藏的影评'],
     index: 0,
     movieList: {},
@@ -127,32 +128,61 @@ Page({
   },
 
   onTapLogin() {
-    qcloud.setLoginUrl(config.service.loginUrl)
-    qcloud.login({
-      success:  userInfo  => {
-        console.log('success')
-        this.setData({
-          userInfo: userInfo
-        })
-      },
-      fail: result => {
-        console.log('fail')
-        console.log(result)
-      }
-    })
-    // app.login({
+    // 版本1
+    // qcloud.setLoginUrl(config.service.loginUrl)
+    // qcloud.login({
+    //   success:  userInfo  => {
+    //     console.log('success')
+    //     console.log(userInfo)
+    //     this.setData({
+    //       userInfo: userInfo
+    //     })
+    //   },
+    //   fail: result => {
+    //     console.log('fail')
+    //     console.log(result)
+    //   }
+    // })
+    // 版本2
+    // this.doQcloudLogin({
     //   success: ({ userInfo }) => {
     //     this.setData({
     //       userInfo
     //     })
     //   }
     // })
+    // 版本3
+    // this.login({
+    //   success: ({ userInfo }) => {
+    //     this.setData({
+    //       userInfo: userInfo
+    //     })
+    //   }
+    // })
+// 版本4
+    app.login({
+      success: ({ userInfo }) => {
+        this.setData({
+          userInfo,
+          locationAuthType: app.data.locationAuthType
+        })
+      },
+      error: () => {
+        this.setData({
+          locationAuthType: app.data.locationAuthType
+        })
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // 同步授权状态
+    this.setData({
+      locationAuthType: app.data.locationAuthType
+    })
     app.checkSession({
       success: ({ userInfo }) => {
         this.setData({
@@ -161,5 +191,6 @@ Page({
         this.getMyReviewList()
       }
     })
-  }
+  },
+
 })

@@ -153,63 +153,95 @@ Page({
   // 收藏review
   onTapCollectReview(event) {
     let review_id = this.data.reviewId
-
-    // 查看是否收藏影评
+    // 收藏影评
     qcloud.request({
-      url: config.service.hascollectedReview,
+      url: config.service.collectReview,
       login: true,
-      method: 'GET',
+      method: 'PUT',
+      data: {
+        review_id: review_id
+      },
       success: result => {
         let data = result.data
-        if (data.data.length>0){
-          // 收藏影评
-          qcloud.request({
-            url: config.service.collectReview,
-            login: true,
-            method: 'PUT',
-            data: {
-              review_id: review_id
-            },
-            success: result => {
-              let data = result.data
 
-              if (!data.code) {
-                wx.showToast({
-                  icon: 'success',
-                  title: '影评收藏成功'
-                })
-              } else {
-                wx.showToast({
-                  icon: 'none',
-                  title: '影评收藏失败！！！'
-                })
-              }
-            },
-            fail: (res) => {
-              wx.hideLoading()
-              console.log(res)
-              wx.showToast({
-                icon: 'none',
-                title: '影评收藏失败'
-              })
-            }
+        if (!data.code) {
+          wx.showToast({
+            icon: 'success',
+            title: '影评收藏成功'
           })
-        }else{
+        } else {
           wx.showToast({
             icon: 'none',
-            title: '已经收藏'
+            title: '影评收藏失败！！！'
           })
         }
-        
       },
       fail: (res) => {
+        wx.hideLoading()
         console.log(res)
         wx.showToast({
           icon: 'none',
-          title: '收藏失败'
+          title: '影评收藏失败'
         })
       }
     })
+    // // 查看是否收藏影评
+    // qcloud.request({
+    //   url: config.service.hascollectedReview,
+    //   login: true,
+    //   method: 'GET',
+    //   success: result => {
+    //     let data = result.data
+    //     if (data.data.length>0){
+
+    //       // 收藏影评
+    //       qcloud.request({
+    //         url: config.service.collectReview,
+    //         login: true,
+    //         method: 'PUT',
+    //         data: {
+    //           review_id: review_id
+    //         },
+    //         success: result => {
+    //           let data = result.data
+
+    //           if (!data.code) {
+    //             wx.showToast({
+    //               icon: 'success',
+    //               title: '影评收藏成功'
+    //             })
+    //           } else {
+    //             wx.showToast({
+    //               icon: 'none',
+    //               title: '影评收藏失败！！！'
+    //             })
+    //           }
+    //         },
+    //         fail: (res) => {
+    //           wx.hideLoading()
+    //           console.log(res)
+    //           wx.showToast({
+    //             icon: 'none',
+    //             title: '影评收藏失败'
+    //           })
+    //         }
+    //       })
+    //     }else{
+    //       wx.showToast({
+    //         icon: 'none',
+    //         title: '已经收藏'
+    //       })
+    //     }
+        
+    //   },
+    //   fail: (res) => {
+    //     console.log(res)
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: '收藏失败,请求失败'
+    //     })
+    //   }
+    // })
   
   },
 
