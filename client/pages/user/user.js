@@ -1,6 +1,6 @@
 //需要修改sql语句，实现跨表格查询，整理出myReviewList
 const app = getApp()
-const qcloud = require('../../vendor/wafer2-client-sdk/index')
+const qcloud = require('../../vendor/wafer2-client-sdk/index.js')
 const config = require('../../config.js')
 // pages/user/user.js
 Page({
@@ -127,13 +127,26 @@ Page({
   },
 
   onTapLogin() {
-    app.login({
+    qcloud.setLoginUrl(config.service.loginUrl)
+    qcloud.login({
       success: ({ userInfo }) => {
+        console.log('success')
         this.setData({
           userInfo
         })
+      },
+      fail: result => {
+        console.log('fail')
+        console.log(result)
       }
     })
+    // app.login({
+    //   success: ({ userInfo }) => {
+    //     this.setData({
+    //       userInfo
+    //     })
+    //   }
+    // })
   },
 
   /**
