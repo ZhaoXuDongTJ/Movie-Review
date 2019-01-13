@@ -13,6 +13,7 @@
 	},
 	"appid": "wxa62caeaf0d28c264",
 	"projectname": "Movie-Review-github",
+	"libVersion": "2.5.0",
 	"condition": {
 		"search": {
 			"current": -1,

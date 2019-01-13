@@ -129,10 +129,10 @@ Page({
   onTapLogin() {
     qcloud.setLoginUrl(config.service.loginUrl)
     qcloud.login({
-      success: ({ userInfo }) => {
+      success:  userInfo  => {
         console.log('success')
         this.setData({
-          userInfo
+          userInfo: userInfo
         })
       },
       fail: result => {

@@ -39,7 +39,7 @@ Page({
             }
           } 
           let l = reviewList.length
-          let randomReview = reviewList[Math.floor(Math.random() * l)]
+          let randomReview = reviewList || reviewList[Math.floor(Math.random() * l)]
           this.setData({
             randomReview: randomReview
           })
@@ -75,9 +75,9 @@ Page({
         
         let data = result.data
         if(!data.code){
-          if (data.data[0]!=null){
+          if (data.data[0]!=null){  
             this.setData({
-              hotMovie: data.data[0]
+              hotMovie: data.data[Math.floor(Math.random() * data.data.length)]
             })
           }else{
             wx.showToast({
